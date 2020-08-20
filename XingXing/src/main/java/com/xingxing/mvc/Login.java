@@ -8,6 +8,10 @@ import java.sql.ResultSet;
 
 import javax.servlet.http.HttpServletRequest;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -15,7 +19,7 @@ import org.springframework.ui.Model;
 
 public class Login {
 
-	public int loginCheck(String userID, String userPW) throws ClassNotFoundException {
+	public int loginChk(String userID, String userPW, HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException {
 		ApplicationContext context = new ClassPathXmlApplicationContext("datasource.xml");
 		DataSource dt = (DataSource) context.getBean("dataSource");
 		PreparedStatement pstmt = null;
@@ -37,14 +41,20 @@ public class Login {
 			if(rs.next())
 			{
 				dbPW = rs.getString("userPW");
-				if(dbPW.equals(userPW))
+				if(dbPW.equals(userPW)){
+					HttpSession session = request.getSession();
 					chk = 1;
+					session.setAttribute("id", userID);
+					Cookie cookie = new Cookie("id",userID);
+	                cookie.setMaxAge(60*2);
+	                cookie.setPath("/");
+	                response.addCookie(cookie);
+				}
 				else
 					chk = 0;
 			} else {
 				chk = -1;
 			}
-			System.out.println("문자열체"+dbPW);
 			
 			return chk;
 			 

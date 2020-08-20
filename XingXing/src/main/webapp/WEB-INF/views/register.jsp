@@ -49,7 +49,7 @@
 
 
 
-				<form class="login100-form validate-form" method="POST" action="#">
+				<form class="login100-form validate-form" method="POST" action="register">
 					<span class="login100-form-logo"> <img
 						src="/resources/images/sing.JPG" style="border-radius: 80px;">
 					</span> <span class="login100-form-title p-b-34 p-t-27"> Register </span>
@@ -58,7 +58,6 @@
 						ID : <input type="text" name="userID"
 							style="padding: 0px 0px 0px 10px; background-color: transparent;">
 					</div>
-
 					<br>
 
 					<div class="input-group">
@@ -100,7 +99,7 @@
 
 
 					<div>
-						<div style="float: left; padding: 10px 50px 10px 50px;">
+						<div style="float: left; padding: 10px;">
 							<button class="login100-form-btn">Register</button>
 						</div>
 
@@ -109,7 +108,7 @@
 
 				</form>
 
-				<div style="float: left; padding: 10px;">
+				<div style="float: right; padding: 10px;">
 					<button class="login100-form-btn" onclick="location.href='/'">
 						Back</button>
 				</div>

@@ -47,22 +47,60 @@
 			style="background-image: url('/resources/images/bg-01.jpg');">
 			<div class="wrap-login100">
 
-				<p>Point</p>
+				<div>
+					<%
+						//세션값 가져오기
+					HttpSession session = request.getSession();
+					String id = (String) session.getAttribute("id");
+					%>
+					<%
+						// 이미 로그인된 사용자가 Main.jsp로 넘어오면 쿠키로 사용자를 찾아 세션으로 주입
+					// 쿠키값을 세션으로 주입해 , 대신하여 로그인과정을 진행한다.
+					Cookie[] cookies = request.getCookies();
+					if (cookies != null) {
+						for (Cookie cookie : cookies) {
+							if (cookie.getName().equals("id")) {
+						session.setAttribute("id", cookie.getValue());
+							}
+						}
+					}
+					%>
 
-				<div style="float: left; padding: 10px;">
+
+
+				</div>
+
+
+
+				<div>
+					<a href="member"> <img src="/resources/images/member.jpg"
+						style="border-radius: 80px; width: 50px;" align="right">
+					</a>
+				</div>
+				<br> <br>
+				<p>
+					<img src="/resources/images/sing.JPG" style="border-radius: 80px;"
+						align="left"> <span
+						class="login100-form-title p-b-34 p-t-27"> Point<br>
+						300
+					</span>
+				</p>
+				
+				<div style="float: right; padding: 0px 30px 10px 10px;">
 					<button class="login100-form-btn" onclick="location.href='start'">
 						start</button>
 				</div>
 
+				<b style="color: white; float:left;"><%=id%>님이 로그인 하였습니다</b>
 
-				<div style="float: left; padding: 10px;">
-					<button class="login100-form-btn" onclick="location.href='member'">
-						member</button>
-				</div>
+
+
+
+
 
 				<div style="width: 100%; height: 200px; overflow: auto">
 
-					<table border='1px' cellspacing='0'>
+					<table class="table">
 						<tr>
 							<th>#</th>
 							<th>이름</th>
@@ -211,9 +249,13 @@
 
 				</div>
 
+				<br>
 
-
-
+				<div>
+					<a href="/"> <i class="fa fa-remove" aria-hidden="true"
+						style="font-size: 30px; float: right;"></i>
+					</a>
+				</div>
 
 
 

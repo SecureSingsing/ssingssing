@@ -38,7 +38,7 @@
 
  
 
-            <form class="login100-form validate-form" action="loginCheck" method="post">
+            <form class="login100-form validate-form" action="main" method="post">
                <span class="login100-form-logo">
                   <img src = "/resources/images/sing.JPG" style="border-radius: 80px;">
                </span>
@@ -59,7 +59,7 @@
 
 
                <div>
-                  <div style="float:left; padding: 10px 50px 10px 50px;">
+                  <div style="float:left; padding: 10px;">
                      <button class="login100-form-btn">
                         Login
                      </button>
@@ -72,7 +72,7 @@
 
 
 
-            <div style="float:left; padding: 10px;">
+            <div style="float:right; padding: 10px;">
                <button class="login100-form-btn" onclick="location.href='register'" >
                   Sign-Up
                </button>
@@ -95,14 +95,14 @@
    <!--===============================================================================================-->
    <script src="<c:url value="/resources/vendor/bootstrap/js/popper.js"/>"> </script>
    <script src="<c:url value="/resources/vendor/bootstrap/jsa/bootstrap.min.js"/>"> </script>
-   <!—===============================================================================================—>
+   <!--===============================================================================================-->
    <script src="<c:url value="/resources/vendor/select2/select2.min.js"/>"> </script>
-   <!—===============================================================================================—>
+   <!--===============================================================================================-->
    <script src="<c:url value="/resources/vendor/daterangepicker/moment.min.js"/>"> </script>
    <script src="<c:url value="/resources/vendor/daterangepicker/daterangepicker.js"/>"> </script>
-   <!—===============================================================================================—>
+   <!-- =============================================================================================== -->
    <script src="<c:url value="/resources/vendor/countdowntime/countdowntime.js"/>"> </script>
-   <!—===============================================================================================—>
+   <!--=============================================================================================== -->
    <script src="<c:url value="/resources/js/main.js"/>"> </script>
 
 </body>

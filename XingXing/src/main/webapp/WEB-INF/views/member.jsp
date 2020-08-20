@@ -2,10 +2,12 @@
 <%@ page session="false"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*"%>
+
 <!DOCTYPE=html>
 <html lang="en">
 <head>
-<title>Register</title>
+<title>User Information</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->
@@ -41,61 +43,88 @@
 <!--===============================================================================================-->
 </head>
 <body>
-
 	<div class="limiter">
 		<div class="container-login100"
 			style="background-image: url('/resources/images/bg-01.jpg');">
 			<div class="wrap-login100" style="height: 100%;">
 
 
-
-				<form class="login100-form validate-form" method="POST"
-					action="modify">
-					<span class="login100-form-logo"> <img
-						src="/resources/images/sing.JPG" style="border-radius: 80px;">
-					</span> <span class="login100-form-title p-b-34 p-t-27"> Register </span>
-
-					<div class="input-group">ID :</div>
-
-					<br>
-
-					<div class="input-group">PW :</div>
-
-					<br>
-					<div class="input-group">Name :</div>
-					<br>
-
-					<div class="input-group">Weight :</div>
-					<br>
-
-
-					<h4 style="text-align: center;">Gender</h4>
-					<div class="input-group"></div>
-
-					<br>
+				<span class="login100-form-logo"> <img
+					src="/resources/images/sing.JPG" style="border-radius: 80px;">
+				</span> <span class="login100-form-title p-b-34 p-t-27"> Member </span>
 
 
 
 
-					<div>
-						<div style="float: left; padding: 10px 50px 10px 50px;">
-							<button class="login100-form-btn">Modify</button>
-						</div>
+				<%@page
+					import="
 
-					</div>
+ javax.sql.DataSource,
+ org.springframework.context.ApplicationContext,
+ org.springframework.context.support.ClassPathXmlApplicationContext,
+ java.sql.Connection
+"%>
+
+				<%
+					HttpSession session = request.getSession();
+				String userID = (String) session.getAttribute("id");
+
+				System.out.println();
+				System.out.println(userID);
+				System.out.println();
+
+				ApplicationContext context = new ClassPathXmlApplicationContext("datasource.xml");
+				DataSource dt = (DataSource) context.getBean("dataSource");
+				Connection conn = null;
+				PreparedStatement pstmt = null;
+				ResultSet rs = null;
+
+				try {
+
+					conn = dt.getConnection();
+
+					if (conn == null)
+						throw new Exception("Database Connection Fail");
+
+					String sql = "select * from test.USERS WHERE userID= ?";
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setString(1, userID);
+
+					rs = pstmt.executeQuery();
+
+					while (rs.next()) {
+						String nameS = rs.getString("userNAME");
+						String weightS = rs.getString("weight");
+						String genderS = rs.getString("gender");
+						out.println(
+						"<b>ID : </b>" + userID + "<br><br><b>Name : </b> " + nameS + "<br><br><b>Weight : </b>" + weightS + "<br><br><b>Gender : </b>" + genderS + "<br><br>");
+					}
+				} finally {
+					try {
+						pstmt.close();
+					} catch (Exception ignored) {
+
+					}
+					try {
+						conn.close();
+					} catch (Exception ignored) {
+
+					}
+				}
+				%>
 
 
-				</form>
-
-				<div style="float: left; padding: 10px;">
-					<button class="login100-form-btn" onclick="location.href='/'">
-						Back</button>
-				</div>
 
 
 				<div style="float: left; padding: 10px;">
 					<button class="login100-form-btn" onclick="location.href='remove'">
 						remove</button>
+				</div>
+
+
+				<div style="float: right; padding: 10px;">
+					<button class="login100-form-btn" onclick="location.href='main2'">
+						Back</button>
 				</div>
 
 
